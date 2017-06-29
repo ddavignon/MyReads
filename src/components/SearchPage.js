@@ -14,8 +14,8 @@ class SearchPage extends Component {
   }
     
   renderBooks() {
-    return this.state.books.map((items, index) => {
-      return <BooksListDetail key={index} books={items} />;
+    return this.state.books.map((item, index) => {
+      return <BooksListDetail key={index} book={item} />;
     }); 
   }
     
