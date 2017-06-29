@@ -9,10 +9,10 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route path="/" exact component={SearchPage}/>
-        <Route path="/books" component={BooksList} />
+        <Route path="/" exact component={BooksList} />
+        <Route path="/search" component={SearchPage}/>
       </div>
-    )
+    );
   }
 }
 
