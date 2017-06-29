@@ -9,7 +9,7 @@ class SearchPage extends Component {
           <div className="search-books">
             <div className="search-books-bar">
               <Link
-                to='/books'
+                to='/'
                 className='close-search'
               >
                 Close
