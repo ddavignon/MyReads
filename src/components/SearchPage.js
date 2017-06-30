@@ -10,30 +10,27 @@ class SearchPage extends Component {
       query: ''
   };
 
-  componentDidMount() {
-    BooksAPI.getAll().then(books => this.setState({ books }));
-  }
-    
-  renderBooks(books) {
-      if (books) {
-          return books.map((item, index) => {
-              return <BooksListDetail key={index} book={item}/>;
-          });
-      }
-  }
-
   handleUpdateQuery(query) {
-      this.setState({ query });
-      BooksAPI.search(this.state.query)
-          .then(books => books.error ? [] : this.setState({ books }))
+      BooksAPI.search(query)
+          .then(books => books ? this.setState({ books }) : [])
           .catch(err => console.log('search error: ', err));
+      this.setState({ query });
   }
 
   renderSearchResults() {
-      console.log(this.state.query);
+      const {books, query} = this.state;
+
+      if (query) {
+          return books.error ?
+              <div>No results found</div>
+              : books.map((item, index) => {
+                  return <BooksListDetail key={index} book={item}/>;
+              });
+      }
   }
-    
-  render() {
+
+
+    render() {
       return (
         <div className="search-books">
           <div className="search-books-bar">
@@ -55,7 +52,6 @@ class SearchPage extends Component {
           <div className="search-books-results">
             <ol className="books-grid">
                 {this.renderSearchResults()}
-                {this.renderBooks(this.state.books)}
             </ol>
           </div>
         </div>
