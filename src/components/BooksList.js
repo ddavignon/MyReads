@@ -11,28 +11,31 @@ class BooksList extends Component {
     };
 
     componentDidMount() {
-        BooksAPI.getAll().then(books => this.setState({ books }));
+        BooksAPI.getAll().then(books => this.organizeBooks(books));
     }
 
     handleBookShelf(book, shelf) {
-        BooksAPI.update(book, shelf).then(books => this.setState({ books }));
+        BooksAPI.update(book, shelf).then(books => this.organizeBooks(books));
     }
 
+    organizeBooks(books) {
+        this.setState({ books });
+    }
 
     render() {
         const { books } = this.state;
 
-          const matchCR = new RegExp(escapeRegExp('currentlyReading'));
-          let currentlyReading = books ? books.filter(book => matchCR.test(book.shelf)) : null;
+        const matchCR = new RegExp(escapeRegExp('currentlyReading'));
+        let currentlyReading = books ? books.filter(book => matchCR.test(book.shelf)) : null;
 
-          const matchWR = new RegExp(escapeRegExp('wantToRead'));
-          let wantToRead = books ? books.filter(book => matchWR.test(book.shelf)) : null;
+        const matchWR = new RegExp(escapeRegExp('wantToRead'));
+        let wantToRead = books ? books.filter(book => matchWR.test(book.shelf)) : null;
 
-          const matchR = new RegExp(escapeRegExp('read'));
-          let read = books ? books.filter(book => matchR.test(book.shelf)) : null;
+        const matchR = new RegExp(escapeRegExp('read'));
+        let read = books ? books.filter(book => matchR.test(book.shelf)) : null;
 
 
-          return (
+        return (
             <div className="list-books">
               <div className="list-books-title">
                 <h1>MyReads</h1>
@@ -88,7 +91,7 @@ class BooksList extends Component {
                 </Link>
               </div>
             </div>
-          );
+        );
   }
 }
 
