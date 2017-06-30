@@ -16,7 +16,9 @@ class SearchPage extends Component {
   }
 
   handleBookShelf(book, shelf) {
-    BooksAPI.update(book, shelf);
+    BooksAPI.update(book, shelf)
+        .then(() => shelf !== 'none' ? alert(`${book.title} has been added to your shelf!`) : null)
+        .catch(() => alert('Something went wrong! Please try again!'));
   }
 
   renderSearchResults() {
