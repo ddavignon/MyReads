@@ -11,20 +11,28 @@ class SearchPage extends Component {
   };
 
   handleUpdateQuery(query) {
-      BooksAPI.search(query)
-          .then(books => books ? this.setState({ books }) : [])
-          .catch(err => console.log('search error: ', err));
+      BooksAPI.search(query).then(books => books ? this.setState({ books }) : []);
       this.setState({ query });
   }
 
+  handleBookShelf(book, shelf) {
+    BooksAPI.update(book, shelf);
+  }
+
   renderSearchResults() {
-      const {books, query} = this.state;
+      const { books, query } = this.state;
 
       if (query) {
           return books.error ?
               <div>No results found</div>
-              : books.map((item, index) => {
-                  return <BooksListDetail key={index} book={item}/>;
+              : books.map((book, index) => {
+                  return (
+                      <BooksListDetail
+                          key={index}
+                          book={book}
+                          handleBookShelf={this.handleBookShelf.bind(this)}
+                      />
+                  );
               });
       }
   }
