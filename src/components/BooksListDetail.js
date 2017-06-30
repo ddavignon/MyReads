@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
-class BooksListDetail extends Component {
-    state = {
-        value: 'none'
-    };
+const BooksListDetail = ({ book, handleBookShelf }) => {
 
-    render() {
-        const { book } = this.props;
-        
+        const imageThumb = book.imageLinks ? book.imageLinks.smallThumbnail : null;
+
         return (
             <li>
                 <div className="book">
                     <div className="book-top">
-                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')' }}></div>
+                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${imageThumb})` }}></div>
                             <div className="book-shelf-changer">
-                                <select onChange={(e) => this.props.handleBookShelf(book, e.target.value)} value={book.shelf} >
+                                <select onChange={e => handleBookShelf(book, e.target.value)} value={book.shelf} >
                                     <option value="none" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead">Want to Read</option>
@@ -29,7 +25,6 @@ class BooksListDetail extends Component {
                 </div>
             </li>
         );
-    }
-}
+};
 
 export default BooksListDetail;
