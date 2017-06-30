@@ -24,7 +24,6 @@ class BooksList extends Component {
       const matchR = new RegExp(escapeRegExp('read'));
       let read = this.state.books.filter(book => matchR.test(book.shelf));
 
-      console.log(read);
 
       return (
         <div className="list-books">
