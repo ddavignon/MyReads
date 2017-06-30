@@ -35,64 +35,46 @@ class BooksList extends Component {
         BooksAPI.update(book, shelf).then(() => this.getBooks());
     }
 
+    renderShelf(books, title) {
+        return (
+            <div className="bookshelf">
+                <h2 className="bookshelf-title">{title}</h2>
+                <div className="bookshelf-books">
+                    <ol className="books-grid">
+                        {books.map((book, index) =>
+                            <BooksListDetail
+                                key={index}
+                                book={book}
+                                handleBookShelf={this.handleBookShelf.bind(this)}
+                            />)}
+                    </ol>
+                </div>
+            </div>
+        )
+    }
+
     render() {
         const { currentlyReading, wantToRead, read } = this.state;
 
         return (
             <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <div className="list-books-content">
-                <div>
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Currently Reading</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                          {currentlyReading.map((book, index) =>
-                              <BooksListDetail
-                                key={index}
-                                book={book}
-                                handleBookShelf={this.handleBookShelf.bind(this)}
-                              />)}
-                      </ol>
-                    </div>
-                  </div>
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Want to Read</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                          {wantToRead.map((book, index) =>
-                              <BooksListDetail
-                                  key={index}
-                                  book={book}
-                                  handleBookShelf={this.handleBookShelf.bind(this)}
-                              />)}
-                      </ol>
-                    </div>
-                  </div>
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Read</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                          {read.map((book, index) =>
-                              <BooksListDetail
-                                  key={index}
-                                  book={book}
-                                  handleBookShelf={this.handleBookShelf.bind(this)}
-                              />)}
-                      </ol>
-                    </div>
-                  </div>
+                <div className="list-books-title">
+                    <h1>MyReads</h1>
                 </div>
-              </div>
-              <div className="open-search">
-                <Link
-                  to='/search'
-                >
-                Add a book
-                </Link>
-              </div>
+                <div className="list-books-content">
+                    <div>
+                        {this.renderShelf(currentlyReading, 'Currently Reading')}
+                        {this.renderShelf(wantToRead, 'Want to Read')}
+                        {this.renderShelf(read, 'Read')}
+                    </div>
+                </div>
+                <div className="open-search">
+                    <Link
+                        to='/search'
+                    >
+                        Add a book
+                    </Link>
+                </div>
             </div>
         );
   }
