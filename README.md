@@ -12,4 +12,8 @@ This is the first project for the Udacity React Nanodegree. This project emphasi
 2. `cd MyReads` then run `npm install`
 3. `npm start` to start the app then navigate to http://localhost:3000/ on your local machine
 
+## Demo
+
+A demo of the app can be found at https://my-reads-b5720.firebaseapp.com/
+
 
